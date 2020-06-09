@@ -1,5 +1,10 @@
+
+
 class QueryRunner():
     def __init__(self):
+        pass
+
+    def runQuery(self, query):
         pass
 
     def i_short_1(self):

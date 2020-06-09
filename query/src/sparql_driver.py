@@ -1,10 +1,11 @@
+import logging
+import sys
 from argparse import ArgumentParser
+
+import driver
 import seed_generator
 import stardog_query_runner
 import virtuoso_query_runner
-import driver
-import sys, logging
-from datetime import datetime
 
 DEFAULT_PATH_TO_SEEDS = "/Users/kasper/data/sf1/substitution_parameters/"
 DEFAULT_MAX_NUM_SEEDS = 1

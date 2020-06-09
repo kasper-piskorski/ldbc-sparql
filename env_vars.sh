@@ -1,7 +1,7 @@
-export SPARQL_BACKEND=virtuoso
+export SPARQL_BACKEND=stardog
 export SPARQL_SEEDS=5
 export SPARQL_TIMEOUT_MINS=30
-export SFACTOR=sf10
+export SFACTOR=sf01
 export SPLIT_TRIPLE_SIZE=500M
 export SEED_PATH=/Users/kasper/data/$SFACTOR-ttl/substitution_parameters/
 export RDF_DATA_DIR=/Users/kasper/data/$SFACTOR-ttl/social_network/

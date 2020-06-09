@@ -1,8 +1,6 @@
-import query_runner
-import stardog
-import subprocess, os
+import os
 from string import Template
-import json
+import query_runner
 
 class SparqlQueryRunner(query_runner.QueryRunner):
     
@@ -10,9 +8,6 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query_runner.QueryRunner.__init__(self)
         self.queryPath=queryPath
 
-    def runQuery(self, query):
-        pass
-        
     def readQueryFromFile(self, filePath):
         with open(filePath, 'r') as file:
             data = file.read()

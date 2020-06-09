@@ -1,9 +1,14 @@
-import sparql_query_runner
-import os, logging, socket
 import json
+import logging
+import os
+import socket
+import urllib.parse
+import urllib.request
 from string import Template
-import urllib.parse, urllib.request
 from urllib.error import HTTPError, URLError
+
+import sparql_query_runner
+
 
 class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
     def __init__(self, database, timeout_mins, queryDir):
@@ -32,7 +37,6 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
         baseURL = "http://localhost:8890/sparql/"
         data = urllib.parse.urlencode(params).encode("utf-8")
         req = urllib.request.Request(baseURL)
-        #print(query)
         try:
             with urllib.request.urlopen(req, data=data, timeout=self.timeout_secs) as f:
                 response = f.read()

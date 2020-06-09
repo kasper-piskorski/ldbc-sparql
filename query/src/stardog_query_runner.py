@@ -1,8 +1,5 @@
 import sparql_query_runner
 import stardog
-import subprocess, os
-from string import Template
-import json
 
 conn_details = {
             'endpoint': 'http://localhost:5820',

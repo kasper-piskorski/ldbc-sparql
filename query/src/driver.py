@@ -1,8 +1,8 @@
-import sys, os
-
-from timeit import default_timer as timer
-from datetime import datetime as dt
 import json
+import os
+from datetime import datetime as dt
+from timeit import default_timer as timer
+
 
 def run_query_ic(seed, query_num, runner):
     if query_num == 1:
@@ -10,7 +10,8 @@ def run_query_ic(seed, query_num, runner):
     elif query_num == 2:
         return runner.i_complex_2(seed.get("personId"), seed.get("maxDate"))
     elif query_num == 3:
-        return runner.i_complex_3(seed.get("personId"), seed.get("startDate"), seed.get("durationDays"), seed.get("countryXName"), seed.get("countryYName"))
+        return runner.i_complex_3(seed.get("personId"), seed.get("startDate"), seed.get("durationDays"),
+                                  seed.get("countryXName"), seed.get("countryYName"))
     elif query_num == 4:
         return runner.i_complex_4(seed.get("personId"), seed.get("startDate"), seed.get("durationDays"))
     elif query_num == 5:
@@ -36,11 +37,13 @@ def run_query_ic(seed, query_num, runner):
     else:
         print("Invalid query: " + query_num)
 
+
 def run_query_bi(seed, query_num, runner):
     if query_num == 1:
         return runner.bi_1(seed.get("maxDate"))
     elif query_num == 2:
-        return runner.bi_2(seed.get("startDate"), seed.get("endDate"), seed.get("country1Name"), seed.get("country2Name"))
+        return runner.bi_2(seed.get("startDate"), seed.get("endDate"), seed.get("country1Name"),
+                           seed.get("country2Name"))
     elif query_num == 3:
         return runner.bi_3(seed.get("year1"), seed.get("month1"))
     elif query_num == 4:
@@ -68,7 +71,8 @@ def run_query_bi(seed, query_num, runner):
     elif query_num == 15:
         return runner.bi_15(seed.get("countryName"))
     elif query_num == 16:
-        return runner.bi_16(seed.get("personId"), seed.get("countryName"), seed.get("tagClassName"), seed.get("minPathDistance"), seed.get("maxPathDistance"))
+        return runner.bi_16(seed.get("personId"), seed.get("countryName"), seed.get("tagClassName"),
+                            seed.get("minPathDistance"), seed.get("maxPathDistance"))
     elif query_num == 17:
         return runner.bi_17(seed.get("countryName"))
     elif query_num == 18:
@@ -86,9 +90,10 @@ def run_query_bi(seed, query_num, runner):
     elif query_num == 24:
         return runner.bi_24(seed.get("tagClassName"))
     elif query_num == 25:
-        return runner.bi_25(seed.get("person1Id"), seed.get("person2Id"), seed.get("startDate"), seed.get("endDate"),)
+        return runner.bi_25(seed.get("person1Id"), seed.get("person2Id"), seed.get("startDate"), seed.get("endDate"), )
     else:
         print("Invalid query: " + query_num)
+
 
 def run_query(seed, query_type, query_num, runner):
     if query_type == "ic":
@@ -98,19 +103,20 @@ def run_query(seed, query_type, query_num, runner):
     else:
         print("Invalid query type: " + query_type)
 
+
 def run_queries(seeds, query_type, query_num, runner):
-    #create result folder
+    # create result folder
     resultPath = "result/"
     if not os.path.exists(os.path.dirname(resultPath)):
         try:
             os.makedirs(os.path.dirname(resultPath))
-        except OSError as exc: # Guard against race condition
+        except OSError as exc:  # Guard against race condition
             if exc.errno != errno.EEXIST:
                 raise
 
     query = query_type + str(query_num)
     ofile = open(resultPath + query, 'w')
-    
+
     total_time = 0.0
     total_knsize = 0
     report = "\n---------- " + str(dt.now()) + "  " + "  ----------\n"
@@ -118,17 +124,17 @@ def run_queries(seeds, query_type, query_num, runner):
 
     for seed in seeds:
         start = timer()
-        
+
         run_query(seed, query_type, query_num, runner)
 
         end = timer()
         exe_time = end - start
         total_time += exe_time
-        
+
         line = query + ": " + json.dumps(seed) + "," + str(exe_time) + " seconds"
         print(line)
         ofile.write(line + "\n")
 
-    summary="summary," +  query + "," + str(total_time/len(seeds)) + " seconds"
+    summary = "summary," + query + "," + str(total_time / len(seeds)) + " seconds"
     ofile.write(summary)
-    print(summary)   
+    print(summary)
