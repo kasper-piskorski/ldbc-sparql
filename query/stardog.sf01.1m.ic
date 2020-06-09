@@ -1,0 +1,132 @@
+3
+Running IC queries...
+
+---------- 2020-05-21 16:48:16.133368    ----------
+
+Results: 1
+ic1: {"personId": "30786325579101", "firstName": "Ian"},3.585441052 seconds
+Results: 20
+ic1: {"personId": "24189255811707", "firstName": "Jun"},1.2462569830000003 seconds
+Results: 19
+ic1: {"personId": "26388279067358", "firstName": "Jun"},1.1415453290000004 seconds
+summary,ic1,1.9910811213333337 seconds
+
+---------- 2020-05-21 16:48:22.345587    ----------
+
+Results: 20
+ic2: {"personId": "19791209300143", "maxDate": "20121128010000000"},1.533889197 seconds
+Results: 20
+ic2: {"personId": "10995116278647", "maxDate": "20120828020000000"},1.145891216 seconds
+Results: 20
+ic2: {"personId": "32985348834326", "maxDate": "20120411020000000"},0.413800068 seconds
+summary,ic2,1.0311934936666667 seconds
+
+---------- 2020-05-21 16:48:25.685466    ----------
+
+Results: 0
+ic3: {"personId": "15393162790207", "startDate": "20101201010000000", "durationDays": "30", "countryXName": "Puerto_Rico", "countryYName": "Republic_of_Macedonia"},1.059587524 seconds
+Results: 0
+ic3: {"personId": "32985348833679", "startDate": "20110301010000000", "durationDays": "38", "countryXName": "Switzerland", "countryYName": "Uruguay"},0.16196842099999986 seconds
+Results: 0
+ic3: {"personId": "26388279067108", "startDate": "20120101010000000", "durationDays": "28", "countryXName": "Oman", "countryYName": "Dominican_Republic"},0.14661453400000002 seconds
+summary,ic3,0.4560568263333333 seconds
+
+---------- 2020-05-21 16:48:27.284055    ----------
+
+Results: 1
+ic4: {"personId": "10995116278874", "startDate": "20120601020000000", "durationDays": "28"},0.239846346 seconds
+Results: 1
+ic4: {"personId": "6597069766964", "startDate": "20120801020000000", "durationDays": "71"},0.037593900999999985 seconds
+Results: 1
+ic4: {"personId": "19791209300151", "startDate": "20121001020000000", "durationDays": "76"},0.02029191899999999 seconds
+summary,ic4,0.09924405533333332 seconds
+
+---------- 2020-05-21 16:48:27.814602    ----------
+
+Results: 20
+ic5: {"personId": "15393162790207", "minDate": "20120811020000000"},1.01592212 seconds
+Results: 20
+ic5: {"personId": "32985348833679", "minDate": "20120912020000000"},0.7407917540000002 seconds
+Results: 20
+ic5: {"personId": "26388279067108", "minDate": "20120902020000000"},0.783681482 seconds
+summary,ic5,0.8467984520000001 seconds
+
+---------- 2020-05-21 16:48:30.597271    ----------
+
+Results: 10
+ic6: {"personId": "30786325579101", "tagName": "Shakira"},0.183005608 seconds
+Results: 1
+ic6: {"personId": "24189255811707", "tagName": "Alberto_Fujimori"},0.05687287099999999 seconds
+Results: 10
+ic6: {"personId": "26388279067358", "tagName": "Mary_Magdalene"},0.06078103199999996 seconds
+summary,ic6,0.10021983699999998 seconds
+
+---------- 2020-05-21 16:48:31.125568    ----------
+
+Results: 20
+ic7: {"personId": "26388279067534"},1.814328119 seconds
+Results: 20
+ic7: {"personId": "24189255811566"},0.3024537479999998 seconds
+Results: 20
+ic7: {"personId": "6597069767242"},0.335060747 seconds
+summary,ic7,0.8172808713333333 seconds
+
+---------- 2020-05-21 16:48:33.805763    ----------
+
+Results: 20
+ic8: {"personId": "2199023256816"},0.250481999 seconds
+Results: 20
+ic8: {"personId": "6597069767242"},0.06036817 seconds
+Results: 20
+ic8: {"personId": "987"},0.031695205999999976 seconds
+summary,ic8,0.11418179166666666 seconds
+
+---------- 2020-05-21 16:48:34.382897    ----------
+
+Results: 20
+ic9: {"personId": "32985348834013", "maxDate": "20120828020000000"},3.251902686 seconds
+Results: 20
+ic9: {"personId": "17592186044737", "maxDate": "20120728020000000"},3.2285383119999995 seconds
+Results: 20
+ic9: {"personId": "30786325579101", "maxDate": "20120201010000000"},2.9062207129999997 seconds
+summary,ic9,3.1288872369999994 seconds
+
+---------- 2020-05-21 16:48:43.994222    ----------
+
+Results: 10
+ic10: {"personId": "30786325579101", "month": "7", "nextMonth": "8"},0.875866969 seconds
+Results: 10
+ic10: {"personId": "24189255811707", "month": "12", "nextMonth": "1"},0.9013600129999999 seconds
+Results: 10
+ic10: {"personId": "26388279067358", "month": "7", "nextMonth": "8"},0.8780222160000002 seconds
+summary,ic10,0.885083066 seconds
+
+---------- 2020-05-21 16:48:46.888080    ----------
+
+Results: 0
+ic11: {"personId": "30786325579101", "countryName": "Puerto_Rico", "workFromYear": "2004"},0.271688148 seconds
+Results: 1
+ic11: {"personId": "24189255811707", "countryName": "Switzerland", "workFromYear": "2006"},0.04738511000000001 seconds
+Results: 0
+ic11: {"personId": "26388279067358", "countryName": "Oman", "workFromYear": "1998"},0.008525392999999992 seconds
+summary,ic11,0.10919955033333334 seconds
+
+---------- 2020-05-21 16:48:47.445992    ----------
+
+Results: 1
+ic12: {"personId": "19791209300143", "tagClassName": "BasketballPlayer"},0.157348839 seconds
+Results: 2
+ic12: {"personId": "10995116278647", "tagClassName": "Chancellor"},0.013480005999999989 seconds
+Results: 1
+ic12: {"personId": "32985348834326", "tagClassName": "MilitaryUnit"},0.013035788999999964 seconds
+summary,ic12,0.061288211333333315 seconds
+
+---------- 2020-05-21 16:48:47.855814    ----------
+
+Results: 1
+ic13: {"person1Id": "32985348833679", "person2Id": "26388279067108"},0.48225196000000004 seconds
+Results: 1
+ic13: {"person1Id": "15393162790207", "person2Id": "6597069767300"},0.24451810500000004 seconds
+Results: 1
+ic13: {"person1Id": "26388279067108", "person2Id": "26388279066795"},0.2185304119999999 seconds
+summary,ic13,0.315100159 seconds

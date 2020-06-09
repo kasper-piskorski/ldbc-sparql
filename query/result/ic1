@@ -1,0 +1,6 @@
+ic1: {"personId": "6597069812321", "firstName": "John"},2.9031210510000003 seconds
+ic1: {"personId": "8796093047542", "firstName": "John"},2.250248116 seconds
+ic1: {"personId": "19791209314115", "firstName": "Guillermo"},2.419789666 seconds
+ic1: {"personId": "8796093045836", "firstName": "Joe"},2.406154611999999 seconds
+ic1: {"personId": "28587302373011", "firstName": "John"},4.209063179999999 seconds
+summary,ic1,2.8376753249999997 seconds

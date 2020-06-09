@@ -1,0 +1,54 @@
+PREFIX : <http://stardog.com/tutorial/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+snvoc:Person a rdfs:Class .
+snvoc:Forum a rdfs:Class .
+snvoc:Comment a rdfs:Class .
+snvoc:Forum a rdfs:Class .
+snvoc:Post a rdfs:Class .
+snvoc:TagClass a rdfs:Class .
+
+snvoc:birthday a rdf:Property ;
+snvoc:browserUsed a rdf:Property ;
+snvoc:classYear a rdf:Property ;
+snvoc:containerOf a rdf:Property ;
+snvoc:content a rdf:Property ;
+snvoc:creationDate a rdf:Property ;
+snvoc:email a rdf:Property ;
+snvoc:firstName a rdf:Property ;
+snvoc:gender a rdf:Property ;
+snvoc:hasComment a rdf:Property ;
+snvoc:hasCreator a rdf:Property ;
+snvoc:hasInterest a rdf:Property ;
+snvoc:hasMember a rdf:Property ;
+snvoc:hasModerator a rdf:Property ;
+snvoc:hasOrganisation a rdf:Property ;
+snvoc:hasPerson a rdf:Property ;
+snvoc:hasPost a rdf:Property ;
+snvoc:hasTag a rdf:Property ;
+snvoc:id a rdf:Property ;
+snvoc:imageFile a rdf:Property ;
+snvoc:isLocatedIn a rdf:Property ;
+snvoc:isPartOf a rdf:Property ;
+snvoc:joinDate a rdf:Property ;
+snvoc:knows a rdf:Property ;
+snvoc:language a rdf:Property ;
+snvoc:lastName a rdf:Property ;
+snvoc:length a rdf:Property ;
+snvoc:likes a rdf:Property ;
+snvoc:locationIP a rdf:Property ;
+snvoc:replyOf a rdf:Property ;
+snvoc:speaks a rdf:Property ;
+snvoc:studyAt a rdf:Property ;
+snvoc:title a rdf:Property ;
+snvoc:url a rdf:Property ;
+snvoc:workAt a rdf:Property ;
+snvoc:workFrom a rdf:Property ;
+
+
+:name a rdf:Property ;
+   rdfs:label "name" ;
+   rdfs:comment "The name of an entity." ;
+   rdfs:range xsd:string .

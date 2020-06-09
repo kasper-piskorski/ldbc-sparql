@@ -1,0 +1,79 @@
+Running IC queries...
+
+---------- 2020-05-13 17:08:37.151314    ----------
+
+Results: 18
+ic1: {"personId": "30786325583618", "firstName": "Chau"},20.52426665 seconds
+summary,ic1,20.52426665 seconds
+
+---------- 2020-05-13 17:08:57.872816    ----------
+
+Results: 20
+ic2: {"personId": "17592186052613", "maxDate": "20121128010000000"},9.674451465 seconds
+summary,ic2,9.674451465 seconds
+
+---------- 2020-05-13 17:09:07.742674    ----------
+
+Results: 0
+ic3: {"personId": "17592186055119", "startDate": "20110601020000000", "durationDays": "42", "countryXName": "Laos", "countryYName": "Scotland"},2.493548683 seconds
+summary,ic3,2.493548683 seconds
+
+---------- 2020-05-13 17:09:10.430178    ----------
+
+Results: 1
+ic4: {"personId": "21990232559429", "startDate": "20120501020000000", "durationDays": "37"},1.7012392900000002 seconds
+summary,ic4,1.7012392900000002 seconds
+
+---------- 2020-05-13 17:09:12.324612    ----------
+
+Results: 1
+ic5: {"personId": "17592186055119", "minDate": "20120927020000000"},1.8990092379999999 seconds
+summary,ic5,1.8990092379999999 seconds
+
+---------- 2020-05-13 17:09:14.418392    ----------
+
+Results: 10
+ic6: {"personId": "30786325583618", "tagName": "Angola"},0.6266563489999999 seconds
+summary,ic6,0.6266563489999999 seconds
+
+---------- 2020-05-13 17:09:15.247858    ----------
+
+Results: 20
+ic7: {"personId": "17592186053137"},3.062858065 seconds
+summary,ic7,3.062858065 seconds
+
+---------- 2020-05-13 17:09:18.518155    ----------
+
+Results: 3
+ic8: {"personId": "24189255818757"},0.20525163800000001 seconds
+summary,ic8,0.20525163800000001 seconds
+
+---------- 2020-05-13 17:09:18.923011    ----------
+
+Results: 20
+ic9: {"personId": "13194139542834", "maxDate": "20111217010000000"},19.825994147 seconds
+summary,ic9,19.825994147 seconds
+
+---------- 2020-05-13 17:09:38.944403    ----------
+
+Results: 10
+ic10: {"personId": "30786325583618", "month": "11", "nextMonth": "12"},5.672421522 seconds
+summary,ic10,5.672421522 seconds
+
+---------- 2020-05-13 17:09:44.867746    ----------
+
+Results: 10
+ic11: {"personId": "30786325583618", "countryName": "Laos", "workFromYear": "2010"},0.642583638 seconds
+summary,ic11,0.642583638 seconds
+
+---------- 2020-05-13 17:09:45.714603    ----------
+
+Results: 6
+ic12: {"personId": "17592186052613", "tagClassName": "BasketballPlayer"},0.22877660000000002 seconds
+summary,ic12,0.22877660000000002 seconds
+
+---------- 2020-05-13 17:09:46.155316    ----------
+
+Results: 1
+ic13: {"person1Id": "17592186055119", "person2Id": "8796093025131"},3.848367231 seconds
+summary,ic13,3.848367231 seconds
