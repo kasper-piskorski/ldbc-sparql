@@ -13,27 +13,27 @@ import sparql_query_runner
 class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
     def __init__(self, database, timeout_mins, queryDir):
         sparql_query_runner.SparqlQueryRunner.__init__(self, queryDir)
-        self.database=database
-        self.timeout_secs=timeout_mins*60
+        self.database = database
+        self.timeout_secs = timeout_mins * 60
 
     def durationDays(self, days):
         durationDays = "xsd:duration(\"P" + days + "D\")"
         return durationDays
 
     def i_complex_7(self, personId):
-        queryFilePath=os.path.join(self.queryPath, "interactive-complex-7.sparql")
+        queryFilePath = os.path.join(self.queryPath, "interactive-complex-7.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId)
         return self.runQuery(qt)
 
     def runQuery(self, query):
-        params={
+        params = {
             "default-graph-uri": self.database,
             "query": query,
             "timeout": 0,
             "format": "application/json",
-            }
+        }
         baseURL = "http://localhost:8890/sparql/"
         data = urllib.parse.urlencode(params).encode("utf-8")
         req = urllib.request.Request(baseURL)
@@ -41,7 +41,7 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
             with urllib.request.urlopen(req, data=data, timeout=self.timeout_secs) as f:
                 response = f.read()
                 output = json.loads(response)
-                results=output.get("results").get("bindings")
+                results = output.get("results").get("bindings")
                 logging.info("Results: " + str(len(results)))
                 return results
         except HTTPError as error:
@@ -54,9 +54,9 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
 
 
 if __name__ == "__main__":
-    graph="http://www.ldbc.eu"
+    graph = "http://www.ldbc.eu"
 
-    query="SELECT DISTINCT (count(*) as ?count) WHERE {?s ?p ?o}"
+    query = "SELECT DISTINCT (count(*) as ?count) WHERE {?s ?p ?o}"
 
     runner = VirtuosoQueryRunner(graph, 1, "queries")
     runner.runQuery(query)

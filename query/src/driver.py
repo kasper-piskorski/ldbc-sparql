@@ -118,7 +118,6 @@ def run_queries(seeds, query_type, query_num, runner):
     ofile = open(resultPath + query, 'w')
 
     total_time = 0.0
-    total_knsize = 0
     report = "\n---------- " + str(dt.now()) + "  " + "  ----------\n"
     print(report)
 

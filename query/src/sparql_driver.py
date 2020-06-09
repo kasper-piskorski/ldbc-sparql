@@ -11,12 +11,12 @@ DEFAULT_PATH_TO_SEEDS = "/Users/kasper/data/sf1/substitution_parameters/"
 DEFAULT_MAX_NUM_SEEDS = 1
 DEFAULT_QUERY_TYPE = "ic"
 DEFAULT_QUERY_NUMBER = 1
-DEFAULT_TIMEOUT=30000
-DEFAULT_DATABASE="sf1"
-MAX_IC=14
-MAX_BI=25
-DATE_FORMAT="%Y%m%d%H%M%S000"
-QUERY_DIR="sparql"
+DEFAULT_TIMEOUT = 30000
+DEFAULT_DATABASE = "sf1"
+MAX_IC = 14
+MAX_BI = 25
+DATE_FORMAT = "%Y%m%d%H%M%S000"
+QUERY_DIR = "sparql"
 
 if __name__ == "__main__":
     ap = ArgumentParser()
@@ -28,14 +28,15 @@ if __name__ == "__main__":
     ap.add_argument("-to", "--timeout", default=DEFAULT_TIMEOUT, help="Query timeout in mins")
     ap.add_argument("-db", "--database", default=DEFAULT_TIMEOUT)
     args = ap.parse_args()
-  
+
     args = ap.parse_args()
     backend = args.backend
     timeout = int(args.timeout)
-    if backend== "stardog":
-        queryRunner=stardog_query_runner.StardogQueryRunner(args.database, timeout, QUERY_DIR)
+    if backend == "stardog":
+        queryRunner = stardog_query_runner.StardogQueryRunner(args.database, timeout, QUERY_DIR)
     elif backend == "virtuoso":
-        queryRunner=virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + args.database, timeout, QUERY_DIR)
+        queryRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + args.database, timeout,
+                                                                QUERY_DIR)
 
     logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
     seeds = seed_generator.get_seeds(args.path, args.num, args.qtype, args.qno, DATE_FORMAT)
