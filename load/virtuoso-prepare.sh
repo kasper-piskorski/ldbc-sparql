@@ -20,8 +20,3 @@ sed -i "s|MaxCheckpointRemap.*|MaxCheckpointRemap=${MAX_CHECKPOINT_REMAP}|g" "${
 sed -i "s|.*MaxQueryCostEstimationTime.*|;MaxQueryCostEstimationTime = 400|g" "${CONFIG}"
 sed -i "s|MaxQueryExecutionTime.*|MaxQueryExecutionTime=${TIMEOUT_S}|g" "${CONFIG}"
 sed -i "s|KeepAliveTimeout.*|KeepAliveTimeout=${TIMEOUT_S}|g" "${CONFIG}"
-
-#MaxQueryCostEstimationTime      = 400   ; in seconds
-#MaxQueryExecutionTime           = 300   ; in seconds
-#NumberOfBuffers          = 680000
-#MaxDirtyBuffers          = 500000

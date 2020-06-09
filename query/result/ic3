@@ -1,6 +1,0 @@
-ic3: {"personId": "27493", "startDate": "20110301010000000", "durationDays": "32", "countryXName": "Papua_New_Guinea", "countryYName": "Switzerland"},0.80468005 seconds
-ic3: {"personId": "28587302374257", "startDate": "20110501020000000", "durationDays": "47", "countryXName": "Honduras", "countryYName": "Hong_Kong"},7.068331801 seconds
-ic3: {"personId": "2199023290733", "startDate": "20110501020000000", "durationDays": "31", "countryXName": "Norway", "countryYName": "Azerbaijan"},6.0064881119999995 seconds
-ic3: {"personId": "26388279068903", "startDate": "20110301010000000", "durationDays": "30", "countryXName": "Singapore", "countryYName": "Azerbaijan"},0.23594459399999934 seconds
-ic3: {"personId": "17592186071510", "startDate": "20110501020000000", "durationDays": "32", "countryXName": "Switzerland", "countryYName": "Hong_Kong"},5.8030368339999985 seconds
-summary,ic3,3.9836962782 seconds

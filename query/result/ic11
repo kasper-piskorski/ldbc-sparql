@@ -1,6 +1,0 @@
-ic11: {"personId": "6597069812321", "countryName": "Papua_New_Guinea", "workFromYear": "2011"},0.08283312300000001 seconds
-ic11: {"personId": "8796093047542", "countryName": "Honduras", "workFromYear": "2007"},0.07306000300000004 seconds
-ic11: {"personId": "19791209314115", "countryName": "Norway", "workFromYear": "2013"},0.07709739699999996 seconds
-ic11: {"personId": "8796093045836", "countryName": "Singapore", "workFromYear": "2000"},0.05123668600000009 seconds
-ic11: {"personId": "28587302373011", "countryName": "Switzerland", "workFromYear": "2012"},0.07342744599999995 seconds
-summary,ic11,0.071530931 seconds

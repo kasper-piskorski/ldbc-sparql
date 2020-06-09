@@ -8,7 +8,7 @@ echo "\nPreparing for bulk loading...\n"
 "${VIRTUOSO_HOME}"/bin/isql 1111 dba dba exec="LOAD load.sql"
 
 STARTTIME=$(date +%s)
-echo "\nBulk loading started at $STARTTIME...\n"
+echo "\nBulk loading started...\n"
 
 for (( i=$1; i<=$VIRTUOSO_LOADERS; i++ ))
 do

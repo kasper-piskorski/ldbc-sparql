@@ -1,6 +1,0 @@
-ic4: {"personId": "15393162822759", "startDate": "20110501020000000", "durationDays": "42"},7.198552528 seconds
-ic4: {"personId": "15393162809497", "startDate": "20110301010000000", "durationDays": "38"},10.016102139 seconds
-ic4: {"personId": "13194139563356", "startDate": "20121101010000000", "durationDays": "31"},2.010615309000002 seconds
-ic4: {"personId": "4398046533267", "startDate": "20120101010000000", "durationDays": "37"},10.013619967 seconds
-ic4: {"personId": "10995116284233", "startDate": "20110301010000000", "durationDays": "28"},2.175404869000001 seconds
-summary,ic4,6.282858962400001 seconds
