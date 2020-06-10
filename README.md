@@ -54,7 +54,11 @@ export VIRTUOSO_LOADERS=4
 
 The `VIRTUOSO_AVAILABLE_MEMORY` determines the number of buffers and maximum number of dirty buffers created when loading which affects loading performance. `VIRTUOSO_DB_SIZE_GB` determines maximum renapping checkpoint. `VIRTUOSO_LOADERS` specifies how many loaders will be created when loading. For best performance it should amount to `no_of_available_cores/2.5`.
 
-Before initiating the loading, the `virtuoso-prepare.sh` script should be run after which the Virtuoso server should be restarted. After doing that, the loading can be started by running `load-to-virtuoso.sh` script.
+**NB: Before loading:**
+- run the `virtuoso-prepare.sh` script
+- restart virtuoso
+
+After doing that, the loading can be started by running the `load-to-virtuoso.sh` script.
 
 
 ### Running the query benchmark
