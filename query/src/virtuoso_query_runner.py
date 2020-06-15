@@ -20,13 +20,6 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
         durationDays = "xsd:duration(\"P" + days + "D\")"
         return durationDays
 
-    def i_complex_7(self, personId):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-7.sparql")
-        query = self.readQueryFromFile(queryFilePath)
-        qt = Template(query).substitute(
-            personId=personId)
-        return self.runQuery(qt)
-
     def runQuery(self, query):
         params = {
             "default-graph-uri": self.database,

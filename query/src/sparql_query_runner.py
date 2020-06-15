@@ -1,7 +1,18 @@
 import os
 from string import Template
 import query_runner
-
+    
+short_queries = {
+        1: "interactive-short-1.sparql",
+        2: "interactive-short-2.sparql",
+        3: "interactive-short-3.sparql",
+        4: "interactive-short-4.sparql",
+        5: "interactive-short-5.sparql",
+        6: "interactive-short-6.sparql",
+        7: "interactive-short-7.sparql",
+        8: "interactive-short-8.sparql",
+        9: "interactive-short-9.sparql"
+}
 
 class SparqlQueryRunner(query_runner.QueryRunner):
 
@@ -35,6 +46,12 @@ class SparqlQueryRunner(query_runner.QueryRunner):
     def collectionise(self, elements):
         result = "(\"" + "\" \"".join(elements) + "\")"
         return result
+
+    def i_short(self, query_no, personId):
+        queryFilePath = os.path.join(self.queryPath, short_queries.get(query_no))
+        query = self.readQueryFromFile(queryFilePath)
+        qt = Template(query).substitute(personId=personId)
+        return self.runQuery(qt)
 
     def i_complex_1(self, personId, firstName):
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-1.sparql")

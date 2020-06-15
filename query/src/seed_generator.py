@@ -1,6 +1,10 @@
 import csv, os
 from datetime import datetime as dt
 
+INTERACTIVE_COMPLEX="ic"
+INTERACTIVE_SHORT="is"
+BUSINESS_INTELLIGENCE="bi"
+
 
 def generate_seed_dict_bi(row, query_num, DATE_FORMAT):
     if query_num == 1:
@@ -66,6 +70,8 @@ def generate_seed_dict_bi(row, query_num, DATE_FORMAT):
         start_date = dt.fromtimestamp(int(row[2]) / 1000).strftime(DATE_FORMAT)
         end_date = dt.fromtimestamp(int(row[3]) / 1000).strftime(DATE_FORMAT)
         return {"person1Id": row[0], "person2Id": row[1], "startDate": start_date, "endDate": end_date}
+    else:
+        print("Invalid query: " + query_num)
 
 
 def generate_seed_dict_ic(row, query_num, DATE_FORMAT):
@@ -105,19 +111,38 @@ def generate_seed_dict_ic(row, query_num, DATE_FORMAT):
         return {"person1Id": row[0], "person2Id": row[1]}
     elif query_num == 14:
         return {"person1Id": row[0], "person2Id": row[1]}
+    else:
+        print("Invalid query: " + query_num)
+
+    
+def generate_seed_dict_is(row, query_num, DATE_FORMAT):
+    if query_num in range(1, 10):
+        return {"personId": row[0]}
+    else:
+        print("Invalid query: " + query_num)
 
 
 def generate_seed_dict(row, query_type, query_num, DATE_FORMAT):
-    if query_type == "ic":
+    if query_type == INTERACTIVE_COMPLEX:
         seed = generate_seed_dict_ic(row, query_num, DATE_FORMAT)
-    elif query_type == "bi":
+    elif query_type == BUSINESS_INTELLIGENCE:
         seed = generate_seed_dict_bi(row, query_num, DATE_FORMAT)
+    elif query_type == INTERACTIVE_SHORT:
+        seed = generate_seed_dict_is(row, query_num, DATE_FORMAT)
+    else:
+        print("Invalid query type: " + query_type)
     return seed
 
 
 def get_seeds(path, num, query_type, query_num, DATE_FORMAT):
-    f_name = "interactive_{}_param.txt".format(query_num) if query_type == "ic" \
-        else "bi_{}_param.txt".format(query_num)
+    if query_type == INTERACTIVE_COMPLEX:
+        f_name = "interactive_{}_param.txt".format(query_num)
+    elif query_type == BUSINESS_INTELLIGENCE:
+        f_name = "bi_{}_param.txt".format(query_num)
+    elif query_type == INTERACTIVE_SHORT:
+        f_name = "interactive_7_param.txt"
+    else:
+        print("Invalid query type: " + query_type)
 
     seeds = []
     with open(os.path.join(path, f_name), "r") as f:

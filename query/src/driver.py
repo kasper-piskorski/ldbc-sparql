@@ -3,6 +3,11 @@ import os
 from datetime import datetime as dt
 from timeit import default_timer as timer
 
+def run_query_is(seed, query_num, runner):
+    if query_num in range(1, 10):
+        return runner.i_short(query_num, seed.get("personId"))
+    else:
+        print("Invalid query: " + str(query_num))
 
 def run_query_ic(seed, query_num, runner):
     if query_num == 1:
@@ -35,7 +40,7 @@ def run_query_ic(seed, query_num, runner):
     elif query_num == 14:
         return runner.i_complex_14(seed.get("person1Id"), seed.get("person2Id"))
     else:
-        print("Invalid query: " + query_num)
+        print("Invalid query: " + str(query_num))
 
 
 def run_query_bi(seed, query_num, runner):
@@ -92,7 +97,7 @@ def run_query_bi(seed, query_num, runner):
     elif query_num == 25:
         return runner.bi_25(seed.get("person1Id"), seed.get("person2Id"), seed.get("startDate"), seed.get("endDate"), )
     else:
-        print("Invalid query: " + query_num)
+        print("Invalid query: " + str(query_num))
 
 
 def run_query(seed, query_type, query_num, runner):
@@ -100,8 +105,10 @@ def run_query(seed, query_type, query_num, runner):
         return run_query_ic(seed, query_num, runner)
     elif query_type == "bi":
         return run_query_bi(seed, query_num, runner)
+    elif query_type == "is":
+        return run_query_is(seed, query_num, runner)
     else:
-        print("Invalid query type: " + query_type)
+        print("Invalid query: " + str(query_num))
 
 
 def run_queries(seeds, query_type, query_num, runner):

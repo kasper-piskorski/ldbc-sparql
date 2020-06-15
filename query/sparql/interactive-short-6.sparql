@@ -15,8 +15,20 @@ SELECT
     ?moderatorFirstName
     ?moderatorLastName
 WHERE {
-    BIND( $messageId AS ?messageId )
-    ?message snvoc:id ?messageId .
+    {
+        SELECT
+            ?message
+            ?messageId
+        WHERE
+        {
+            BIND( $personId AS ?rootId )
+            ?rootPerson a snvoc:Person .
+            ?rootPerson snvoc:id ?rootId .
+            ?message snvoc:hasCreator ?rootPerson .
+            ?message snvoc:id ?messageId .
+        }
+        LIMIT 1
+    } .
     OPTIONAL {
         ?message snvoc:replyOf* ?originalPostInner .
         ?originalPostInner a snvoc:Post .

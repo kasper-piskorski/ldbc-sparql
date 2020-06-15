@@ -14,7 +14,19 @@ SELECT
     ?lastName
 WHERE
 {
-    BIND( $messageId AS ?messageId )
+    {
+        SELECT
+            ?messageId
+        WHERE
+        {
+            BIND( $personId AS ?rootId )
+            ?rootPerson a snvoc:Person .
+            ?rootPerson snvoc:id ?rootId .
+            ?message snvoc:hasCreator ?rootPerson .
+            ?message snvoc:id ?messageId .
+        }
+        LIMIT 1
+    } .
     ?message snvoc:id ?messageId .
     ?message snvoc:hasCreator ?creator .
     ?creator snvoc:id ?personId .

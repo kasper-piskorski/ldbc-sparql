@@ -7,25 +7,7 @@ class QueryRunner():
     def runQuery(self, query):
         pass
 
-    def i_short_1(self):
-        pass
-
-    def i_short_2(self):
-        pass
-
-    def i_short_3(self):
-        pass
-
-    def i_short_4(self):
-        pass
-
-    def i_short_5(self):
-        pass
-
-    def i_short_6(self):
-        pass
-
-    def i_short_7(self):
+    def i_short(self):
         pass
 
     def i_complex_1(self):
