@@ -18,10 +18,24 @@ SELECT
     ?replyAuthorKnowsOriginalMessageAuthor
 WHERE
 {
-    BIND( $messageId AS ?messageId )
-    ?message snvoc:id ?messageId .
-    ?message snvoc:hasCreator ?messageCreator .
-    ?messageCreator snvoc:id ?messageCreatorId .
+    {
+        SELECT
+            ?message
+            ?messageId
+            ?messageCreator
+            ?messageCreatorId
+        WHERE
+        {
+            BIND( $personId AS ?messageCreator )
+            ?messageCreator a snvoc:Person .
+            ?messageCreator snvoc:id ?messageCreatorId .
+            ?message snvoc:hasCreator ?messageCreator .
+            ?message snvoc:id ?messageId .
+            VALUES (?type) {(snvoc:Comment) (snvoc:Post)}
+            ?message a ?type .
+        }
+        LIMIT 1
+    } .
     ?comment snvoc:replyOf ?message .
     ?comment a snvoc:Comment .
     ?comment snvoc:id ?commentId .

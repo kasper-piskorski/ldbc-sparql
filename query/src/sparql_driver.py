@@ -35,8 +35,7 @@ if __name__ == "__main__":
     if backend == "stardog":
         queryRunner = stardog_query_runner.StardogQueryRunner(args.database, timeout, QUERY_DIR)
     elif backend == "virtuoso":
-        queryRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + args.database, timeout,
-                                                                QUERY_DIR)
+        queryRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + args.database, timeout, QUERY_DIR)
 
     logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
     seeds = seed_generator.get_seeds(args.path, args.num, args.qtype, args.qno, DATE_FORMAT)
