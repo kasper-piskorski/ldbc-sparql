@@ -40,7 +40,7 @@ export STARDOG_HOME=/path/to/stardog/dir
 export STARDOG_SERVER_JAVA_ARGS="-Xms16G -Xmx16G -XX:MaxDirectMemorySize=128G"
 ```
 
-Once these are specified, the loading can be initiated by running the `load-to-virtuoso.sh` script.
+Once these are specified, the loading can be initiated by running the `load-to-stardog.sh` script.
 
 ### Loading with Virtuoso
 When loading with Virtuoso, the additional env vars of `VIRTUOSO_HOME`, `VIRTUOSO_AVAILABLE_MEMORY_GB`, `VIRTUOSO_DB_SIZE_GB` and `VIRTUOSO_LOADERS` need to be defined in `env_vars.sh`:
