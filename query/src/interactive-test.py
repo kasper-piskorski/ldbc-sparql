@@ -4,6 +4,7 @@ import driver
 import seed_generator
 import stardog_query_runner
 import virtuoso_query_runner
+import sys, logging
 
 SFACTOR = "sf1"
 PATH_TO_SEEDS = "/Users/kasper/data/" + SFACTOR + "-ttl/substitution_parameters/"
@@ -15,10 +16,12 @@ class TestInteractive(unittest.TestCase):
 
     def testInteractiveShort(self):
         query_type = "is"
-        no_of_seeds = 5
+        no_of_seeds = 1
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
 
-        for qno in range(8, 10):
+        logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
+
+        for qno in range(1, 7):
             print("Interactive Short " + str(qno))
             seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
             query_ok = True
