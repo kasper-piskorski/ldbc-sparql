@@ -11,6 +11,7 @@ import sparql_query_runner
 
 
 class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
+    name = "virtuoso"
     def __init__(self, database, timeout_mins, queryDir):
         sparql_query_runner.SparqlQueryRunner.__init__(self, queryDir)
         self.database = database

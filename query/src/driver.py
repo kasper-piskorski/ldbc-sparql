@@ -1,5 +1,5 @@
 import json
-import os
+import os, logging
 from datetime import datetime as dt
 from timeit import default_timer as timer
 
@@ -110,6 +110,19 @@ def run_query(seed, query_type, query_num, runner):
     else:
         print("Invalid query: " + str(query_num))
 
+def log_query(query, backend, database, query_type, query_num, seed):
+    resultPath = "query/"
+    if not os.path.exists(os.path.dirname(resultPath)):
+        try:
+            os.makedirs(os.path.dirname(resultPath))
+        except OSError as exc:
+            if exc.errno != errno.EEXIST:
+                raise
+
+    query_file = backend + "-" + database + "-" + query_type + str(query_num) + "-" + str(seed) + ".sparql"
+    ofile = open(resultPath + query_file, 'w')
+    ofile.write(query)
+    ofile.close()
 
 def run_queries(seeds, query_type, query_num, runner):
     # create result folder
@@ -117,7 +130,7 @@ def run_queries(seeds, query_type, query_num, runner):
     if not os.path.exists(os.path.dirname(resultPath)):
         try:
             os.makedirs(os.path.dirname(resultPath))
-        except OSError as exc:  # Guard against race condition
+        except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
 
@@ -128,10 +141,14 @@ def run_queries(seeds, query_type, query_num, runner):
     report = "\n---------- " + str(dt.now()) + "  " + "  ----------\n"
     print(report)
 
+    seed_count = 1
     for seed in seeds:
         start = timer()
 
-        run_query(seed, query_type, query_num, runner)
+        query_string, results = run_query(seed, query_type, query_num, runner)
+        #if logging.root.isEnabledFor(getattr(logging, 'DEBUG')):
+        log_query(query_string, runner.name, runner.database, query_type, query_num, seed_count)
+        seed_count += 1
 
         end = timer()
         exe_time = end - start
@@ -144,3 +161,4 @@ def run_queries(seeds, query_type, query_num, runner):
     summary = "summary," + query + "," + str(total_time / len(seeds)) + " seconds"
     ofile.write(summary)
     print(summary)
+    ofile.close()
