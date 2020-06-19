@@ -111,12 +111,11 @@ def run_query(seed, query_type, query_num, runner):
         print("Invalid query: " + str(query_num))
 
 def log_query(query, backend, database, query_type, query_num, seed):
-    # create result folder
     resultPath = "query/"
     if not os.path.exists(os.path.dirname(resultPath)):
         try:
             os.makedirs(os.path.dirname(resultPath))
-        except OSError as exc:  # Guard against race condition
+        except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
 
@@ -131,7 +130,7 @@ def run_queries(seeds, query_type, query_num, runner):
     if not os.path.exists(os.path.dirname(resultPath)):
         try:
             os.makedirs(os.path.dirname(resultPath))
-        except OSError as exc:  # Guard against race condition
+        except OSError as exc:
             if exc.errno != errno.EEXIST:
                 raise
 
