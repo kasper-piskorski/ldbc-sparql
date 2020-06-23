@@ -29,6 +29,12 @@ class StardogQueryRunner(sparql_query_runner.SparqlQueryRunner):
                 output = conn.select(query)          
                 results = output.get("results").get("bindings")
                 logging.info("Results: " + str(len(results)))
+<<<<<<< HEAD
         except Exception as inst:
             logging.error(inst)
         return query, results
+=======
+                return query, results
+        except Exception as inst:
+            logging.error(inst)
+>>>>>>> 3bd0019bb3f6036ad67fde1a1c496c812056df85
