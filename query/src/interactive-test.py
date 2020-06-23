@@ -14,7 +14,7 @@ QUERY_DIR = "../sparql"
 
 class TestInteractive(unittest.TestCase):
 
-    def testInteractiveShort(self):
+    def testInteractiveShortStardog(self):
         query_type = "is"
         no_of_seeds = 1
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
@@ -30,6 +30,25 @@ class TestInteractive(unittest.TestCase):
                 print(seed)
                 stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)
                 if stardogResults == None or len(stardogResults) == 0:
+                    query_ok = False
+            self.assertTrue(query_ok)
+
+    def testInteractiveShortVirtuoso(self):
+        query_type = "is"
+        no_of_seeds = 1
+        virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
+
+        logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
+
+        for qno in range(1, 7):
+            print("Interactive Short " + str(qno))
+            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
+            query_ok = True
+            for seed_no in range(0, len(seeds)):
+                seed = seeds[seed_no]
+                print(seed)
+                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
+                if virtuosoResults == None or len(virtuosoResults) == 0:
                     query_ok = False
             self.assertTrue(query_ok)
 
