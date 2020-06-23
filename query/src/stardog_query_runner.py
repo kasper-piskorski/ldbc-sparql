@@ -21,11 +21,14 @@ class StardogQueryRunner(sparql_query_runner.SparqlQueryRunner):
         return durationDays
 
     def runQuery(self, query):
+        results = {}
+        if self.timeout == 0:
+            return query, results
         try:
             with stardog.Connection(self.database, **conn_details) as conn:
-                output = conn.select(query)
+                output = conn.select(query)          
                 results = output.get("results").get("bindings")
                 logging.info("Results: " + str(len(results)))
-                return query, results
         except Exception as inst:
             logging.error(inst)
+        return query, results

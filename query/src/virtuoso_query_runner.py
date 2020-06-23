@@ -22,6 +22,10 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
         return durationDays
 
     def runQuery(self, query):
+        results = {}
+        if self.timeout_secs == 0:
+            return query, results
+
         params = {
             "default-graph-uri": self.database,
             "query": query,
@@ -36,8 +40,7 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
                 response = f.read()
                 output = json.loads(response)
                 results = output.get("results").get("bindings")
-                logging.info("Results: " + str(len(results)))
-                return results
+                logging.info("Results: " + str(len(results)))   
         except HTTPError as error:
             logging.error('Data not retrieved because %s', error)
         except URLError as error:
@@ -45,6 +48,7 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
                 logging.error('socket timed out - URL')
             else:
                 logging.error("Error encountered during query request %s", error)
+        return query, results
 
 
 if __name__ == "__main__":
