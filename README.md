@@ -62,4 +62,4 @@ After doing that, the loading can be started by running the `load-to-virtuoso.sh
 
 
 ### Running the query benchmark
-The query benchmark can be started by running the `benchmark.sh` script
+The query benchmark can be started by running the `benchmark.sh` script located in the `query` directory.
