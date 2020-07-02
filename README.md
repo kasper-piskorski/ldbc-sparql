@@ -1,6 +1,6 @@
 # LDBC SNB SPARQL implementation
 
-[SPARQL 1.1](https://www.w3.org/TR/sparql11-query/) implementation of the [LDBC SNB BI benchmark](https://github.com/ldbc/ldbc_snb_docs).
+[SPARQL 1.1](https://www.w3.org/TR/sparql11-query/) implementation of the [LDBC SNB benchmark](https://github.com/ldbc/ldbc_snb_docs).
 
 ## General Remarks
 Two RDF backends are currently supported: {virtuoso, stardog}
@@ -61,5 +61,29 @@ The `VIRTUOSO_AVAILABLE_MEMORY` determines the number of buffers and maximum num
 After doing that, the loading can be started by running the `load-to-virtuoso.sh` script.
 
 
-### Running the query benchmark
-The query benchmark can be started by running the `benchmark.sh` script located in the `query` directory.
+## Running the query benchmark
+The query benchmark can be started by simply running the `benchmark.sh` script located in the `query` directory. The script requires the underlying backend to be running. The script uses parameters specified in `env_vars.sh` file. The script triggers execution of all possible queries. Single queries can be executed by running the `sparql_driver.py` located in the `query/src` directory:
+
+```
+python3 -u sparql_driver.py -b $backend -db $database -qt $qtype -qn $query_number -n $seeds -p $seed_path -to $timeout
+```
+where the parameters have the following meaning:
+- backend  - either `stardog` or `virtuoso`
+- database - target database name to be queried
+- qtype - benchmark query type, a value from {is, ic, bi}
+- query_number - specific number of the query to be executed
+- seeds - number of seeds (substitution parameters) used
+- seed_path - path to directory where seeds are located
+- timeout - query timeout in minutes
+
+## Adding new backend
+All driver implementations are located in `src` directory. To add a new backend:
+- new query runner needs to be implemented inheriting from `SparqlQueryRunner` defined in `sparql_query_runner.py`. Example implementations are located in `stardog_query_runner.py` and `virtuoso_query_runner.py`.
+- the new query runner should implement a `runQuery` method which executes an injected query in string representation against a specific backend.
+- SPARQL driver in `sparql_driver.py` needs to be updated to include the newly created runner, example:
+```
+    queryRunner =  newbackend_query_runner.NewBackendQueryRunner(args.database, timeout, QUERY_DIR)
+
+    seeds = seed_generator.get_seeds(args.path, args.num, args.qtype, args.qno, DATE_FORMAT)
+    driver.run_queries(seeds, args.qtype, args.qno, queryRunner)
+```
