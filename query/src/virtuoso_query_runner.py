@@ -49,12 +49,3 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
             else:
                 logging.error("Error encountered during query request %s", error)
         return query, results
-
-
-if __name__ == "__main__":
-    graph = "http://www.ldbc.eu"
-
-    query = "SELECT DISTINCT (count(*) as ?count) WHERE {?s ?p ?o}"
-
-    runner = VirtuosoQueryRunner(graph, 1, "queries")
-    runner.runQuery(query)
