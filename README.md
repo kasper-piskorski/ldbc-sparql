@@ -77,7 +77,7 @@ where the parameters have the following meaning:
 - timeout - query timeout in minutes
 
 ## Adding new backend
-All driver implementations are located in `src` directory. To add a new backend:
+All driver implementations are located in `query/src` directory. To add a new backend:
 - new query runner needs to be implemented inheriting from `SparqlQueryRunner` defined in `sparql_query_runner.py`. Example implementations are located in `stardog_query_runner.py` and `virtuoso_query_runner.py`.
 - the new query runner should implement a `runQuery` method which executes an injected query in string representation against a specific backend.
 - SPARQL driver in `sparql_driver.py` needs to be updated to include the newly created runner, example:
