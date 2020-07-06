@@ -4,10 +4,11 @@ import driver
 import seed_generator
 import stardog_query_runner
 import virtuoso_query_runner
+import rdfox_query_runner
 import sys, logging
 
-PATH_TO_SEEDS = 
 SFACTOR = "sf1"
+PATH_TO_SEEDS = "/Users/kasper/data/" + SFACTOR + "-ttl/substitution_parameters/"
 DATE_FORMAT = "%Y%m%d%H%M%S000"
 TIMEOUT = 5
 QUERY_DIR = "../sparql"
@@ -49,7 +50,26 @@ class TestInteractive(unittest.TestCase):
                 if virtuosoResults == None or len(virtuosoResults) == 0:
                     query_ok = False
             self.assertTrue(query_ok)
+
+    def testInteractiveShortRDFox(self):
+        query_type = "is"
+        no_of_seeds = 1
+        virtuosoRunner = rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
+
+        logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
+
+        for qno in range(1, 5):
+            print("Interactive Short " + str(qno))
+            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
+            query_ok = True
+            for seed_no in range(0, len(seeds)):
+                seed = seeds[seed_no]
+                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
+                if virtuosoResults == None or len(virtuosoResults) == 0:
+                    query_ok = False
+            self.assertTrue(query_ok)
             
+    @unittest.skip
     def testInteractiveCrossImplementation(self):
         query_type = "ic"
         no_of_seeds = 5

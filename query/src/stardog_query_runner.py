@@ -16,7 +16,7 @@ class StardogQueryRunner(sparql_query_runner.SparqlQueryRunner):
         self.database = database
         self.timeout = timeout
 
-    def durationDays(self, days):
+    def duration_days_literal(self, days):
         durationDays = "\"P" + days + "D\"^^xsd:duration"
         return durationDays
 

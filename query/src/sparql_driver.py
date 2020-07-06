@@ -6,6 +6,7 @@ import driver
 import seed_generator
 import stardog_query_runner
 import virtuoso_query_runner
+import rdfox_query_runner
 
 DEFAULT_MAX_NUM_SEEDS = 1
 DEFAULT_QUERY_TYPE = "ic"
@@ -35,6 +36,8 @@ if __name__ == "__main__":
         queryRunner = stardog_query_runner.StardogQueryRunner(args.database, timeout, QUERY_DIR)
     elif backend == "virtuoso":
         queryRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + args.database, timeout, QUERY_DIR)
+    elif backend == "rdfox":
+        queryRunner = rdfox_query_runner.RDFoxQueryRunner(args.database, timeout, QUERY_DIR)
 
     logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
 

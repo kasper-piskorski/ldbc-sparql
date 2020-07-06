@@ -21,7 +21,11 @@ WHERE {
     ?person a snvoc:Person .
     ?person snvoc:id ?personId .
     ?message snvoc:hasCreator ?person .
-    ?message snvoc:content|snvoc:imageFile ?messageContent .
+    {
+        ?message snvoc:content ?messageContent .
+    } UNION {
+        ?message snvoc:imageFile ?messageContent .
+    }
     ?message snvoc:creationDate ?messageCreationDate .
     ?message snvoc:id ?messageId .
     OPTIONAL {

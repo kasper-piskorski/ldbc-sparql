@@ -25,7 +25,11 @@ class SparqlQueryRunner(query_runner.QueryRunner):
             data = file.read()
             return data
 
-    def date(self, date):
+    def duration_days_literal(self, days):
+        durationDays = "xsd:duration(\"P" + days + "D\")"
+        return durationDays
+
+    def date_literal(self, date):
         if len(date) != 17:
             print('Please set the input date in format: yyyymmddhhmmssmmm')
 
@@ -40,7 +44,10 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         dateTime = "xsd:datetime(\"" + year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second + "." + milli + "Z\")"
         return dateTime
 
-    def literalise(self, string):
+    def long_literal(self, number):
+        return "\"" + number + "\"" + "^^xsd:long"
+
+    def string_literal(self, string):
         return "\"" + string + "\""
 
     def collectionise(self, elements):
@@ -50,47 +57,47 @@ class SparqlQueryRunner(query_runner.QueryRunner):
     def i_short(self, query_no, personId):
         queryFilePath = os.path.join(self.queryPath, short_queries.get(query_no))
         query = self.readQueryFromFile(queryFilePath)
-        qt = Template(query).substitute(personId=personId)
+        qt = Template(query).substitute(personId=self.long_literal(personId))
         return self.runQuery(qt)
 
     def i_complex_1(self, personId, firstName):
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-1.sparql")
         query = self.readQueryFromFile(queryFilePath)
-        qt = Template(query).substitute(personId=personId, firstName=self.literalise(firstName))
+        qt = Template(query).substitute(personId=personId, firstName=self.string_literal(firstName))
         return self.runQuery(qt)
 
     def i_complex_2(self, personId, date):
-        dateTime = self.date(date)
+        dateTime = self.date_literal(date)
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-2.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(personId=personId, maxDate=dateTime)
         return self.runQuery(qt)
 
     def i_complex_3(self, personId, startDate, days, countryXName, countryYName):
-        dateTime = self.date(startDate)
+        dateTime = self.date_literal(startDate)
 
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-3.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId,
             startDate=dateTime,
-            durationDays=self.durationDays(days),
-            countryXName=self.literalise(countryXName),
-            countryYName=self.literalise(countryYName))
+            durationDays=self.duration_days_literal(days),
+            countryXName=self.string_literal(countryXName),
+            countryYName=self.string_literal(countryYName))
         return self.runQuery(qt)
 
     def i_complex_4(self, personId, startDate, days):
-        dateTime = self.date(startDate)
+        dateTime = self.date_literal(startDate)
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-4.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId,
             startDate=dateTime,
-            durationDays=self.durationDays(days))
+            durationDays=self.duration_days_literal(days))
         return self.runQuery(qt)
 
     def i_complex_5(self, personId, minDate):
-        dateTime = self.date(minDate)
+        dateTime = self.date_literal(minDate)
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-5.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
@@ -103,7 +110,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId,
-            tagName=self.literalise(tagName))
+            tagName=self.string_literal(tagName))
         return self.runQuery(qt)
 
     def i_complex_7(self, personId):
@@ -121,7 +128,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         return self.runQuery(qt)
 
     def i_complex_9(self, personId, date):
-        dateTime = self.date(date)
+        dateTime = self.date_literal(date)
         queryFilePath = os.path.join(self.queryPath, "interactive-complex-9.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
@@ -142,7 +149,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId,
-            countryName=self.literalise(country),
+            countryName=self.string_literal(country),
             workFromYear=workFromYear)
         return self.runQuery(qt)
 
@@ -151,7 +158,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId,
-            tagClassName=self.literalise(tagClassName))
+            tagClassName=self.string_literal(tagClassName))
         return self.runQuery(qt)
 
     def i_complex_13(self, person1Id, person2Id):
@@ -171,7 +178,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         return self.runQuery(qt)
 
     def bi_1(self, date):
-        dateTime = self.date(date)
+        dateTime = self.date_literal(date)
         queryFilePath = os.path.join(self.queryPath, "bi-1.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
@@ -180,15 +187,15 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         return self.runQuery(qt)
 
     def bi_2(self, startDate, endDate, country1, country2):
-        dateTime1 = self.date(startDate)
-        dateTime2 = self.date(endDate)
+        dateTime1 = self.date_literal(startDate)
+        dateTime2 = self.date_literal(endDate)
         queryFilePath = os.path.join(self.queryPath, "bi-2.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             startDate=dateTime1,
             endDate=dateTime2,
-            country1=self.literalise(country1),
-            country2=self.literalise(country2))
+            country1=self.string_literal(country1),
+            country2=self.string_literal(country2))
         return self.runQuery(qt)
 
     def bi_3(self, year, month):
@@ -203,8 +210,8 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-4.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country),
-            tagClass=self.literalise(tagClass)
+            country=self.string_literal(country),
+            tagClass=self.string_literal(tagClass)
         )
         return self.runQuery(qt)
 
@@ -212,7 +219,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-5.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country)
+            country=self.string_literal(country)
         )
         return self.runQuery(qt)
 
@@ -220,7 +227,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-6.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            tag=self.literalise(tag)
+            tag=self.string_literal(tag)
         )
         return self.runQuery(qt)
 
@@ -228,7 +235,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-7.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            tag=self.literalise(tag)
+            tag=self.string_literal(tag)
         )
         return self.runQuery(qt)
 
@@ -236,7 +243,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-8.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            tag=self.literalise(tag)
+            tag=self.string_literal(tag)
         )
         return self.runQuery(qt)
 
@@ -244,19 +251,19 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-9.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            tagClass1=self.literalise(tagClass1),
-            tagClass2=self.literalise(tagClass2),
+            tagClass1=self.string_literal(tagClass1),
+            tagClass2=self.string_literal(tagClass2),
             threshold=threshold
         )
         return self.runQuery(qt)
 
     def bi_10(self, tag, date):
-        dateTime = self.date(date)
+        dateTime = self.date_literal(date)
         queryFilePath = os.path.join(self.queryPath, "bi-10.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             date=dateTime,
-            tag=self.literalise(tag)
+            tag=self.string_literal(tag)
         )
         return self.runQuery(qt)
 
@@ -265,12 +272,12 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             blacklist="\"" + "| ".join(blocklist) + "\"",
-            country=self.literalise(country)
+            country=self.string_literal(country)
         )
         return self.runQuery(qt)
 
     def bi_12(self, date, likeThreshold):
-        dateTime = self.date(date)
+        dateTime = self.date_literal(date)
         queryFilePath = os.path.join(self.queryPath, "bi-12.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
@@ -283,13 +290,13 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-13.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country)
+            country=self.string_literal(country)
         )
         return self.runQuery(qt)
 
     def bi_14(self, startDate, endDate):
-        dateTime1 = self.date(startDate)
-        dateTime2 = self.date(endDate)
+        dateTime1 = self.date_literal(startDate)
+        dateTime2 = self.date_literal(endDate)
         queryFilePath = os.path.join(self.queryPath, "bi-14.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
@@ -302,7 +309,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-15.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country)
+            country=self.string_literal(country)
         )
         return self.runQuery(qt)
 
@@ -311,10 +318,10 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             personId=personId,
-            country=self.literalise(country),
+            country=self.string_literal(country),
             minPathDistance=minPathDistance,
             maxPathDistance=maxPathDistance,
-            tagClass=self.literalise(tagClass)
+            tagClass=self.string_literal(tagClass)
         )
         return self.runQuery(qt)
 
@@ -322,12 +329,12 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-17.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country)
+            country=self.string_literal(country)
         )
         return self.runQuery(qt)
 
     def bi_18(self, date, lengthThreshold, languages):
-        dateTime = self.date(date)
+        dateTime = self.date_literal(date)
         queryFilePath = os.path.join(self.queryPath, "bi-18.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
@@ -342,8 +349,8 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             date=date,
-            tagClass1=self.literalise(tagClass1),
-            tagClass2=self.literalise(tagClass2)
+            tagClass1=self.string_literal(tagClass1),
+            tagClass2=self.string_literal(tagClass2)
         )
         return self.runQuery(qt)
 
@@ -356,11 +363,11 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         return self.runQuery(qt)
 
     def bi_21(self, country, endDate):
-        dateTime = self.date(endDate)
+        dateTime = self.date_literal(endDate)
         queryFilePath = os.path.join(self.queryPath, "bi-21.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country),
+            country=self.string_literal(country),
             endDate=dateTime
         )
         return self.runQuery(qt)
@@ -369,8 +376,8 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-22.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country1=self.literalise(country1),
-            country2=self.literalise(country2)
+            country1=self.string_literal(country1),
+            country2=self.string_literal(country2)
         )
         return self.runQuery(qt)
 
@@ -378,7 +385,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-23.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            country=self.literalise(country)
+            country=self.string_literal(country)
         )
         return self.runQuery(qt)
 
@@ -386,7 +393,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-24.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            tagClass=self.literalise(tagClass)
+            tagClass=self.string_literal(tagClass)
         )
         return self.runQuery(qt)
 
