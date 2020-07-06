@@ -17,10 +17,6 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
         self.database = database
         self.timeout_secs = timeout_mins * 60
 
-    def durationDays(self, days):
-        durationDays = "xsd:duration(\"P" + days + "D\")"
-        return durationDays
-
     def runQuery(self, query):
         results = {}
         if self.timeout_secs == 0:
