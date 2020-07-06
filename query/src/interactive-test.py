@@ -6,8 +6,8 @@ import stardog_query_runner
 import virtuoso_query_runner
 import sys, logging
 
-PATH_TO_SEEDS = 
 SFACTOR = "sf1"
+PATH_TO_SEEDS = 
 DATE_FORMAT = "%Y%m%d%H%M%S000"
 TIMEOUT = 5
 QUERY_DIR = "../sparql"
@@ -27,7 +27,7 @@ class TestInteractive(unittest.TestCase):
             query_ok = True
             for seed_no in range(0, len(seeds)):
                 seed = seeds[seed_no]
-                stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)
+                stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)[1]
                 if stardogResults == None or len(stardogResults) == 0:
                     query_ok = False
             self.assertTrue(query_ok)
@@ -45,14 +45,14 @@ class TestInteractive(unittest.TestCase):
             query_ok = True
             for seed_no in range(0, len(seeds)):
                 seed = seeds[seed_no]
-                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
+                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)[1]
                 if virtuosoResults == None or len(virtuosoResults) == 0:
                     query_ok = False
             self.assertTrue(query_ok)
-            
+  
     def testInteractiveCrossImplementation(self):
         query_type = "ic"
-        no_of_seeds = 5
+        no_of_seeds = 1
         virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
 
@@ -62,8 +62,8 @@ class TestInteractive(unittest.TestCase):
             query_ok = False
             for seed_no in range(0, len(seeds)):
                 seed = seeds[seed_no]
-                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
-                stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)
+                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)[1]
+                stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)[1]
 
                 if virtuosoResults != None and stardogResults != None:
                     print("v: " + str(len(virtuosoResults)) + " s: " + str(len(stardogResults)))

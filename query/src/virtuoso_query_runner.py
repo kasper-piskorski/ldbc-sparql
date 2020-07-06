@@ -21,7 +21,7 @@ class VirtuosoQueryRunner(sparql_query_runner.SparqlQueryRunner):
         results = {}
         if self.timeout_secs == 0:
             return query, results
-
+            
         params = {
             "default-graph-uri": self.database,
             "query": query,
