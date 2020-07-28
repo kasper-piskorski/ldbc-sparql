@@ -75,13 +75,18 @@ class RDFoxQueryRunner(sparql_query_runner.SparqlQueryRunner):
             "query": query,
             "format": "application/json",
         }
-        response = requests.get(baseURL, 
-            params, 
-            headers={"Accept": "application/sparql-results+json"},
-            timeout = self.timeout_secs)
-        #print(response)
-        output = json.loads(response.text)
-        results = output.get("results").get("bindings")
-        logging.info("Results: " + str(len(results))) 
+
+        try:
+            response = requests.get(baseURL, 
+                params, 
+                headers={"Accept": "application/sparql-results+json"},
+                timeout = self.timeout_secs
+                )
+            #print(response)
+            output = json.loads(response.text)
+            results = output.get("results").get("bindings")
+            logging.info("Results: " + str(len(results))) 
+        except Exception as e:
+            logging.error(e)
 
         return query, results

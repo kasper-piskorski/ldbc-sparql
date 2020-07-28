@@ -22,6 +22,7 @@ class TestInteractive(unittest.TestCase):
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
         self.executeWithBackend(stardogRunner, "is", 1, 7)
 
+    @unittest.skip
     def testInteractiveShortRDFox(self):
         self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "is", 1, 7)
 
@@ -31,7 +32,7 @@ class TestInteractive(unittest.TestCase):
         self.executeWithBackend(virtuosoRunner, "is", 1, 7)
 
     def testInteractiveComplexRDFox(self):
-        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "ic", 4, 12)
+        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "ic", 1, 1)
 
     @unittest.skip
     def testInteractiveComplexVirtuoso(self):

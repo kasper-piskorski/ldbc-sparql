@@ -41,14 +41,14 @@ WHERE
                         {
                             SELECT ?link
                             WHERE {
-                            {
-                                ?rootPerson snvoc:knows ?intermediate .
-                                ?intermediate snvoc:hasPerson ?link .
-                            } UNION {
-                                ?link snvoc:knows ?intermediate .
-                                ?intermediate snvoc:hasPerson ?root .
+                                {   
+                                    ?rootPerson snvoc:knows ?intermediate .
+                                    ?intermediate snvoc:hasPerson ?link .
+                                } UNION {
+                                    ?link snvoc:knows ?intermediate .
+                                    ?intermediate snvoc:hasPerson ?root .
+                                }
                             }
-                        }
                         }{
                             ?link snvoc:knows ?intermediate .
                             ?intermediate snvoc:hasPerson ?fr .

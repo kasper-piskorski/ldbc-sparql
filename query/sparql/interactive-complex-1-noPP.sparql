@@ -101,13 +101,20 @@ SELECT
                                                 }
                                             }
                                         }
+                                        {
+                                            ?link snvoc:knows ?intermediate .
+                                            ?intermediate snvoc:hasPerson ?anotherLink .
+                                        } UNION {
+                                            ?anotherLink snvoc:knows ?intermediate .
+                                            ?intermediate snvoc:hasPerson ?link .
+                                        }      
                                     }
                                 }{
-                                    ?link snvoc:knows ?intermediate .
-                                    ?intermediate snvoc:hasPerson ?anotherLink .
-                                } UNION {
                                     ?anotherLink snvoc:knows ?intermediate .
-                                    ?intermediate snvoc:hasPerson ?link .
+                                    ?intermediate snvoc:hasPerson ?fr .
+                                } UNION {
+                                    ?fr snvoc:knows ?intermediate .
+                                    ?intermediate snvoc:hasPerson ?anotherLink .
                                 }                         
                             }
                             ?fr snvoc:id ?frId .
@@ -151,7 +158,8 @@ SELECT
                     ?study snvoc:hasOrganisation ?uni .
                     ?uni foaf:name ?uniName .
                     ?study snvoc:classYear ?classYear .
-                    ?uni snvoc:isLocatedIn/foaf:name ?uniCountry .
+                    ?uni snvoc:isLocatedIn ?loc .
+                    ?loc foaf:name ?uniCountry .
                 }
             }
             GROUP BY ?frInner
@@ -175,7 +183,8 @@ SELECT
                     ?frInner snvoc:workAt ?work .
                     ?work snvoc:hasOrganisation ?company .
                     ?work snvoc:workFrom ?workFrom .
-                    ?company snvoc:isLocatedIn/foaf:name ?companyCountry .
+                    ?company snvoc:isLocatedIn ?loc .
+                    ?loc foaf:name ?companyCountry .
                     ?company foaf:name ?companyName
                 }
             }

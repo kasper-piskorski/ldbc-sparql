@@ -26,7 +26,8 @@ WHERE {
             BIND( $personId AS ?rootId )
             ?rootPerson a snvoc:Person .
             ?rootPerson snvoc:id ?rootId .
-            #?rootPerson ((snvoc:knows/snvoc:hasPerson)|^(snvoc:knows/snvoc:hasPerson))?/((snvoc:knows/snvoc:hasPerson)|^(snvoc:knows/snvoc:hasPerson)) ?fr .
+            #?rootPerson ((snvoc:knows/snvoc:hasPerson)|^(snvoc:knows/snvoc:hasPerson))?
+            #   /((snvoc:knows/snvoc:hasPerson)|^(snvoc:knows/snvoc:hasPerson)) ?fr .
             {
                 ?rootPerson snvoc:knows ?intermediate .
                 ?intermediate snvoc:hasPerson ?fr . 

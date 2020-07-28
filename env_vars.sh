@@ -1,4 +1,4 @@
-export SPARQL_BACKEND=stardog
+export SPARQL_BACKEND=rdfox
 export SPARQL_SEEDS=5
 export SPARQL_TIMEOUT_MINS=5
 export SFACTOR=sf01

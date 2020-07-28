@@ -34,10 +34,12 @@ WHERE
     ?post a snvoc:Post .
     ?post snvoc:hasTag ?tag .
     ?tag foaf:name ?tagName .
-    ?tag a ?tagType.
-    #this was a variable pattern, a corresponding transitive rule is needed
-    ?tagType rdfs:subClassOf ?tagSuperType .
-    ?tagSuperType rdfs:label $tagClassName .
+    ?tag a ?tagType.  
+    OPTIONAL {
+        #this was a Kleene property path, a corresponding transitive rule is needed
+        ?tagType rdfs:subClassOf ?tagSuperType .
+        ?tagSuperType rdfs:label $tagClassName .
+    }
 }
 GROUP BY ?frId ?first ?last
 ORDER BY DESC(?replyCount) ?frId
