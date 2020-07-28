@@ -78,9 +78,9 @@ class RDFoxQueryRunner(sparql_query_runner.SparqlQueryRunner):
 
         try:
             response = requests.get(baseURL, 
-                params, 
-                headers={"Accept": "application/sparql-results+json"},
-                timeout = self.timeout_secs
+                data = params, 
+                headers = {"Accept": "application/sparql-results+json"},
+                timeout = self.timeout_secs,
                 )
             #print(response)
             output = json.loads(response.text)

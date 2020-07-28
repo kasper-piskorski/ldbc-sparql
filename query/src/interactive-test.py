@@ -11,8 +11,8 @@ import sys, logging
 SFACTOR = "sf01"
 PATH_TO_SEEDS = "/Users/kasper/data/" + SFACTOR + "-ttl/substitution_parameters/"
 DATE_FORMAT = "%Y%m%d%H%M%S000"
-TIMEOUT = 5
-NO_OF_SEEDS = 5
+TIMEOUT = 2
+NO_OF_SEEDS = 1
 QUERY_DIR = "../sparql"
 
 class TestInteractive(unittest.TestCase):
@@ -32,7 +32,7 @@ class TestInteractive(unittest.TestCase):
         self.executeWithBackend(virtuosoRunner, "is", 1, 7)
 
     def testInteractiveComplexRDFox(self):
-        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "ic", 1, 1)
+        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "ic", 1, 12)
 
     @unittest.skip
     def testInteractiveComplexVirtuoso(self):
