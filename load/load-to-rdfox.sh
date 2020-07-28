@@ -9,14 +9,18 @@ echo "active ${SFACTOR}" >> load.rdfox
 
 files=( $( ls ${RDF_DATA_DIR}/*.ttl ) )
 
+#add data
 for file in "${files[@]}"
 do
     echo "$file"
     echo "import $file" >> load.rdfox
 done
 
+#add rules
+echo "import ! [?x, snvoc:replyOf, ?z] :- [?x, snvoc:replyOf, ?y], [?y, snvoc:replyOf, ?z] ." >> load.rdfox
+echo "import ! [?x, rdfs:subClassOf, ?z] :- [?x, rdfs:subClassOf, ?y], [?y, rdfs:subClassOf, ?z] ." >> load.rdfox
+
 echo "set endpoint.port 8080" >> load.rdfox
 echo "endpoint start" >> load.rdfox
 SCRIPT_HOME=" $(pwd)""/load.rdfox"
 ${RDFOX_HOME}RDFox sandbox exec "${SCRIPT_HOME}"
-#curl -i -X POST localhost:8080/datastores/family/sparql -d "query=PREFIX : <https://oxfordsemantic.tech/RDFox/getting-started/>  SELECT ?p ?n WHERE { ?p a :Person . ?p :forename ?n }"

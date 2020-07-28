@@ -5,89 +5,74 @@ import seed_generator
 import stardog_query_runner
 import virtuoso_query_runner
 import rdfox_query_runner
+import query_runner
 import sys, logging
 
-SFACTOR = "sf1"
+SFACTOR = "sf01"
 PATH_TO_SEEDS = "/Users/kasper/data/" + SFACTOR + "-ttl/substitution_parameters/"
 DATE_FORMAT = "%Y%m%d%H%M%S000"
 TIMEOUT = 5
+NO_OF_SEEDS = 5
 QUERY_DIR = "../sparql"
 
 class TestInteractive(unittest.TestCase):
 
+    @unittest.skip
     def testInteractiveShortStardog(self):
-        query_type = "is"
-        no_of_seeds = 1
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
-
-        logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
-
-        for qno in range(1, 7):
-            print("Interactive Short " + str(qno))
-            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
-            query_ok = True
-            for seed_no in range(0, len(seeds)):
-                seed = seeds[seed_no]
-                stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)
-                if stardogResults == None or len(stardogResults) == 0:
-                    query_ok = False
-            self.assertTrue(query_ok)
-
-    def testInteractiveShortVirtuoso(self):
-        query_type = "is"
-        no_of_seeds = 1
-        virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
-
-        logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
-
-        for qno in range(1, 7):
-            print("Interactive Short " + str(qno))
-            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
-            query_ok = True
-            for seed_no in range(0, len(seeds)):
-                seed = seeds[seed_no]
-                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
-                if virtuosoResults == None or len(virtuosoResults) == 0:
-                    query_ok = False
-            self.assertTrue(query_ok)
+        self.executeWithBackend(stardogRunner, "is", 1, 7)
 
     def testInteractiveShortRDFox(self):
-        query_type = "is"
-        no_of_seeds = 1
-        virtuosoRunner = rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
+        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "is", 1, 7)
 
+    @unittest.skip
+    def testInteractiveShortVirtuoso(self):
+        virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
+        self.executeWithBackend(virtuosoRunner, "is", 1, 7)
+
+    def testInteractiveComplexRDFox(self):
+        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "ic", 4, 12)
+
+    @unittest.skip
+    def testInteractiveComplexVirtuoso(self):
+        virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
+        self.executeWithBackend(virtuosoRunner, "ic", 3, 6)
+
+    def executeWithBackend(self, runner: query_runner, query_type, startQ, endQ):
         logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
 
-        for qno in range(1, 5):
-            print("Interactive Short " + str(qno))
-            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
+        for qno in range(startQ, endQ + 1):
+            print( runner.backendName() + ":Interactive Complex " + str(qno))
+            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, NO_OF_SEEDS, query_type, qno, DATE_FORMAT)
             query_ok = True
             for seed_no in range(0, len(seeds)):
                 seed = seeds[seed_no]
-                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
-                if virtuosoResults == None or len(virtuosoResults) == 0:
+                results = driver.run_query(seed, query_type, qno, runner)
+                if results == None or len(results) == 0:
                     query_ok = False
-            self.assertTrue(query_ok)
-            
+            self.assertTrue(query_ok) 
+    
     @unittest.skip
-    def testInteractiveCrossImplementation(self):
+    def testInteractiveCrossImplementation(self, runner: query_runner, another_runner: query_runner, ):
         query_type = "ic"
-        no_of_seeds = 5
         virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
-
-        for qno in range(1, 13):
+        self.crossExecute(virtuosoRunner, stardogRunner, query_type, 1, 13)
+            
+    @unittest.skip
+    def crossExecute(self, runner: query_runner, another_runner: query_runner, query_type, startQ, endQ):
+        for qno in range(startQ, endQ + 1):
             print("Interactive Complex " + str(qno))
-            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, no_of_seeds, query_type, qno, DATE_FORMAT)
+            seeds = seed_generator.get_seeds(PATH_TO_SEEDS, NO_OF_SEEDS, query_type, qno, DATE_FORMAT)
             query_ok = False
             for seed_no in range(0, len(seeds)):
                 seed = seeds[seed_no]
-                virtuosoResults = driver.run_query(seed, query_type, qno, virtuosoRunner)
-                stardogResults = driver.run_query(seed, query_type, qno, stardogRunner)
+                results = driver.run_query(seed, query_type, qno, runner)
+                anotherResults = driver.run_query(seed, query_type, qno, another_runner)
 
-                if virtuosoResults != None and stardogResults != None:
-                    print("v: " + str(len(virtuosoResults)) + " s: " + str(len(stardogResults)))
-                    self.assertEqual(len(virtuosoResults), len(stardogResults))
+                if results != None and anotherResults != None:
+                    print("v: " + str(len(results)) + " s: " + str(len(anotherResults)))
+                    self.assertEqual(len(results), len(anotherResults))
                     query_ok = True
             self.assertTrue(query_ok)
 

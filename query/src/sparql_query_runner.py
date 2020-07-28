@@ -1,24 +1,49 @@
 import os
 from string import Template
 import query_runner
-    
-short_queries = {
-        1: "interactive-short-1.sparql",
-        2: "interactive-short-2.sparql",
-        3: "interactive-short-3.sparql",
-        4: "interactive-short-4.sparql",
-        5: "interactive-short-5.sparql",
-        6: "interactive-short-6.sparql",
-        7: "interactive-short-7.sparql",
-        8: "interactive-short-8.sparql",
-        9: "interactive-short-9.sparql"
-}
 
 class SparqlQueryRunner(query_runner.QueryRunner):
+
+    short_queries = [
+        "",
+        "interactive-short-1.sparql",
+        "interactive-short-2.sparql",
+        "interactive-short-3.sparql",
+        "interactive-short-4.sparql",
+        "interactive-short-5.sparql",
+        "interactive-short-6.sparql",
+        "interactive-short-7.sparql",
+        "interactive-short-8.sparql",
+        "interactive-short-9.sparql"
+    ]
+
+    interactive_queries = [
+        "",
+        "interactive-complex-1.sparql",
+        "interactive-complex-2.sparql",
+        "interactive-complex-3.sparql",
+        "interactive-complex-4.sparql",
+        "interactive-complex-5.sparql",
+        "interactive-complex-6.sparql",
+        "interactive-complex-7.sparql",
+        "interactive-complex-8.sparql",
+        "interactive-complex-9.sparql",
+        "interactive-complex-10.sparql",
+        "interactive-complex-11.sparql",
+        "interactive-complex-12.sparql",
+        "interactive-complex-13.sparql",
+        "interactive-complex-14.sparql"
+    ]
 
     def __init__(self, queryPath="queries"):
         query_runner.QueryRunner.__init__(self)
         self.queryPath = queryPath
+
+    def shortQueryImplementation(self):
+        return self.short_queries
+
+    def interactiveQueryImplementation(self):
+        return self.interactive_queries
 
     def readQueryFromFile(self, filePath):
         with open(filePath, 'r') as file:
@@ -55,31 +80,31 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         return result
 
     def i_short(self, query_no, personId):
-        queryFilePath = os.path.join(self.queryPath, short_queries.get(query_no))
+        queryFilePath = os.path.join(self.queryPath, self.short_queries[query_no])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(personId=self.long_literal(personId))
         return self.runQuery(qt)
 
     def i_complex_1(self, personId, firstName):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-1.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[1])
         query = self.readQueryFromFile(queryFilePath)
-        qt = Template(query).substitute(personId=personId, firstName=self.string_literal(firstName))
+        qt = Template(query).substitute(personId=self.long_literal(personId), firstName=self.string_literal(firstName))
         return self.runQuery(qt)
 
     def i_complex_2(self, personId, date):
         dateTime = self.date_literal(date)
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-2.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[2])
         query = self.readQueryFromFile(queryFilePath)
-        qt = Template(query).substitute(personId=personId, maxDate=dateTime)
+        qt = Template(query).substitute(personId=self.long_literal(personId), maxDate=dateTime)
         return self.runQuery(qt)
 
     def i_complex_3(self, personId, startDate, days, countryXName, countryYName):
         dateTime = self.date_literal(startDate)
 
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-3.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[3])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             startDate=dateTime,
             durationDays=self.duration_days_literal(days),
             countryXName=self.string_literal(countryXName),
@@ -88,81 +113,81 @@ class SparqlQueryRunner(query_runner.QueryRunner):
 
     def i_complex_4(self, personId, startDate, days):
         dateTime = self.date_literal(startDate)
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-4.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[4])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             startDate=dateTime,
             durationDays=self.duration_days_literal(days))
         return self.runQuery(qt)
 
     def i_complex_5(self, personId, minDate):
         dateTime = self.date_literal(minDate)
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-5.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[5])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             minDate=dateTime)
         return self.runQuery(qt)
 
     def i_complex_6(self, personId, tagName):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-6.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[6])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             tagName=self.string_literal(tagName))
         return self.runQuery(qt)
 
     def i_complex_7(self, personId):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-7.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[7])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId)
+            personId=self.long_literal(personId))
         return self.runQuery(qt)
 
     def i_complex_8(self, personId):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-8.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[8])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId)
+            personId=self.long_literal(personId))
         return self.runQuery(qt)
 
     def i_complex_9(self, personId, date):
         dateTime = self.date_literal(date)
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-9.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[9])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             maxDate=dateTime)
         return self.runQuery(qt)
 
     def i_complex_10(self, personId, month):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-10.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[10])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             month=month)
         return self.runQuery(qt)
 
     def i_complex_11(self, personId, country, workFromYear):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-11.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[11])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             countryName=self.string_literal(country),
             workFromYear=workFromYear)
         return self.runQuery(qt)
 
     def i_complex_12(self, personId, tagClassName):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-12.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[12])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             tagClassName=self.string_literal(tagClassName))
         return self.runQuery(qt)
 
     def i_complex_13(self, person1Id, person2Id):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-13.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[13])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             person1Id=person1Id,
@@ -170,7 +195,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         return self.runQuery(qt)
 
     def i_complex_14(self, person1Id, person2Id):
-        queryFilePath = os.path.join(self.queryPath, "interactive-complex-14.sparql")
+        queryFilePath = os.path.join(self.queryPath, self.interactiveQueryImplementation()[14])
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
             person1Id=person1Id,
@@ -317,7 +342,7 @@ class SparqlQueryRunner(query_runner.QueryRunner):
         queryFilePath = os.path.join(self.queryPath, "bi-16.sparql")
         query = self.readQueryFromFile(queryFilePath)
         qt = Template(query).substitute(
-            personId=personId,
+            personId=self.long_literal(personId),
             country=self.string_literal(country),
             minPathDistance=minPathDistance,
             maxPathDistance=maxPathDistance,
