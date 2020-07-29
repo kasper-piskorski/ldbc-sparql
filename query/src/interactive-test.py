@@ -9,7 +9,7 @@ import query_runner
 import sys, logging
 
 SFACTOR = "sf01"
-PATH_TO_SEEDS = "/Users/kasper/data/" + SFACTOR + "-ttl/substitution_parameters/"
+PATH_TO_SEEDS = 
 DATE_FORMAT = "%Y%m%d%H%M%S000"
 TIMEOUT = 2
 NO_OF_SEEDS = 1
