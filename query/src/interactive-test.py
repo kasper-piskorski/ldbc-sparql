@@ -4,7 +4,6 @@ import driver
 import seed_generator
 import stardog_query_runner
 import virtuoso_query_runner
-import rdfox_query_runner
 import query_runner
 import sys, logging
 
@@ -17,27 +16,28 @@ QUERY_DIR = "../sparql"
 
 class TestInteractive(unittest.TestCase):
 
-    @unittest.skip
     def testInteractiveShortStardog(self):
         stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
         self.executeWithBackend(stardogRunner, "is", 1, 7)
 
-    @unittest.skip
-    def testInteractiveShortRDFox(self):
-        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "is", 1, 7)
-
-    @unittest.skip
     def testInteractiveShortVirtuoso(self):
         virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
         self.executeWithBackend(virtuosoRunner, "is", 1, 7)
 
-    def testInteractiveComplexRDFox(self):
-        self.executeWithBackend(rdfox_query_runner.RDFoxQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR), "ic", 1, 12)
+    def testInteractiveComplexStardog(self):
+        stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
+        self.executeWithBackend(stardogRunner, "ic", 1, 12)
 
-    @unittest.skip
     def testInteractiveComplexVirtuoso(self):
         virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
-        self.executeWithBackend(virtuosoRunner, "ic", 3, 6)
+        self.executeWithBackend(virtuosoRunner, "ic", 1, 12)
+    
+    @unittest.skip
+    def testInteractiveCrossImplementation(self, runner: query_runner, another_runner: query_runner, ):
+        query_type = "ic"
+        virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
+        stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
+        self.crossExecute(virtuosoRunner, stardogRunner, query_type, 1, 13)
 
     def executeWithBackend(self, runner: query_runner, query_type, startQ, endQ):
         logging.basicConfig(stream=sys.stdout, level='INFO', format="%(message)s")
@@ -52,15 +52,7 @@ class TestInteractive(unittest.TestCase):
                 if results == None or len(results) == 0:
                     query_ok = False
             self.assertTrue(query_ok) 
-    
-    @unittest.skip
-    def testInteractiveCrossImplementation(self, runner: query_runner, another_runner: query_runner, ):
-        query_type = "ic"
-        virtuosoRunner = virtuoso_query_runner.VirtuosoQueryRunner("http://www.ldbc.eu/" + SFACTOR, TIMEOUT, QUERY_DIR)
-        stardogRunner = stardog_query_runner.StardogQueryRunner(SFACTOR, TIMEOUT, QUERY_DIR)
-        self.crossExecute(virtuosoRunner, stardogRunner, query_type, 1, 13)
             
-    @unittest.skip
     def crossExecute(self, runner: query_runner, another_runner: query_runner, query_type, startQ, endQ):
         for qno in range(startQ, endQ + 1):
             print("Interactive Complex " + str(qno))
