@@ -28,9 +28,5 @@ WHERE
     } .
     ?message snvoc:id ?messageId .
     ?message snvoc:creationDate ?messageCreationDate .
-    {
-        ?message snvoc:content ?messageContent .
-    } UNION {
-        ?message snvoc:imageFile ?messageContent .
-    }
+    ?message snvoc:content|snvoc:imageFile ?messageContent .
 }
